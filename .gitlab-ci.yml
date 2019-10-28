@@ -1,0 +1,40 @@
+image: maven:latest
+
+stages:
+  - clean-env
+  - build
+  - test
+  - package
+
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+
+clean_env:
+  tags:
+    - docker
+  stage: clean-env
+  script:
+    - mvn clean
+    
+code_compile:
+  tags:
+    - docker
+  stage: build
+  script:
+    - mvn compile
+
+build_test:
+  tags:
+    - docker
+  stage: test
+  script:
+    - mvn test
+    
+build_package:
+  tags:
+    - docker
+  stage: package
+  script:
+    - mvn package
